@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'databaseHelper.dart';
+import '../repositories/databaseHelper.dart';
 
 class BookDetailPage extends StatelessWidget {
   final String title;
@@ -27,6 +27,7 @@ class BookDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xFF003F5C),
         title: Text(title),
       ),
       body: SingleChildScrollView(
@@ -46,20 +47,20 @@ class BookDetailPage extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               'Título: $title',
-              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.blueGrey),
             ),
             const SizedBox(height: 8),
             Text(
               'Autor(es): $authors',
-              style: const TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18, color: Colors.blueGrey),
             ),
             const SizedBox(height: 16),
             const Text(
               'Descrição:',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.blueGrey),
             ),
             const SizedBox(height: 8),
-            Text(description),
+            Text(description, style: TextStyle(color: Colors.blueGrey[700])),
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
@@ -68,6 +69,9 @@ class BookDetailPage extends StatelessWidget {
                   const SnackBar(content: Text('Livro adicionado à lista de desejos!')),
                 );
               },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFF003F5C), // Cor do botão
+              ),
               child: const Text('Adicionar à Lista de Desejos'),
             ),
           ],

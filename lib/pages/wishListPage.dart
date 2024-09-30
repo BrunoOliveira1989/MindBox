@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'databaseHelper.dart';
+import '../repositories/databaseHelper.dart';
 
 class WishListPage extends StatefulWidget {
   const WishListPage({super.key});
@@ -21,9 +21,9 @@ class _WishListPageState extends State<WishListPage> {
     try {
       final wishList = await DatabaseHelper().getBooks();
       setState(() {
-        _wishList = List.from(wishList); // Assegure-se de que seja uma lista mutável
+        _wishList = List.from(wishList);
       });
-      print('Lista de desejos carregada: $_wishList'); // Log para depuração
+      print('Lista de desejos carregada: $_wishList');
     } catch (e) {
       print('Erro ao carregar a lista de desejos: $e');
     }
@@ -32,7 +32,7 @@ class _WishListPageState extends State<WishListPage> {
   Future<void> _deleteBook(int id) async {
     try {
       await DatabaseHelper().deleteBook(id);
-      _loadWishList(); // Recarregar a lista após a exclusão
+      _loadWishList();
     } catch (e) {
       print('Erro ao deletar livro: $e');
     }
@@ -58,6 +58,7 @@ class _WishListPageState extends State<WishListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color(0xFF003F5C),
         title: const Text('Lista de Desejos'),
       ),
       body: ReorderableListView(
@@ -67,7 +68,7 @@ class _WishListPageState extends State<WishListPage> {
           }
 
           final item = _wishList.removeAt(oldIndex);
-          final newList = List.of(_wishList); // Crie uma nova lista mutável
+          final newList = List.of(_wishList);
           newList.insert(newIndex, item);
 
           setState(() {
@@ -84,7 +85,7 @@ class _WishListPageState extends State<WishListPage> {
           final String thumbnail = book['thumbnail'] ?? '';
 
           return ListTile(
-            key: ValueKey(id), // Adicione uma chave única para cada item
+            key: ValueKey(id),
             title: Text(title),
             subtitle: Text(authors),
             leading: thumbnail.isNotEmpty
